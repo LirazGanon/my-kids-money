@@ -4,10 +4,9 @@ import { collection, getDocs } from "firebase/firestore";
 
 interface User {
   id: string;
-  username?: string; // Assuming you have a username field, make it optional if it might not exist
-  role: number; // Similarly, make it optional if it might not exist
+  username: string;
+  role: number;
   balance?: number;
-  // Add any other fields you expect to have in your user objects
 }
 
 export const UsersList = () => {
