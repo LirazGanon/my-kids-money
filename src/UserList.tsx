@@ -6,7 +6,9 @@ interface User {
   id: string;
   username: string;
   role: number;
+  password: string;
   balance?: number;
+  transaction: any;
 }
 
 export const UsersList = () => {
@@ -31,6 +33,8 @@ export const UsersList = () => {
           <li key={user.id}>
             {user.username} - Role: {user.role} | balance :
             {user.balance ?? "infinity"}
+            {"password:" + user.password}
+            {"transcation:" + user.transaction}
           </li>
         ))}
       </ul>
