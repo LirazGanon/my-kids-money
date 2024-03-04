@@ -8,38 +8,27 @@ import {
   Typography,
 } from "@mui/material";
 import { FC } from "react";
-import { db } from "../firebase-config";
-import { collection, query, where, getDocs } from "firebase/firestore";
-
-export const checkUserExists = async (username: string, password: string) => {
-  const usersRef = collection(db, "users");
-  const q = query(
-    usersRef,
-    where("username", "==", username),
-    where("password", "==", password)
-  );
-  const querySnapshot = await getDocs(q);
-
-  if (!querySnapshot.empty) {
-    const userDoc = querySnapshot.docs[0].data();
-    console.log("User found:", userDoc);
-    return true;
-  } else {
-    console.log("No user found with that username.");
-    return false;
-  }
-};
+import { getUserDetails } from "../firebaseFunctions";
+import { useNavigate } from "react-router-dom";
 
 export const Login: FC = () => {
+  const navigate = useNavigate();
+
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
     event
   ) => {
     event.preventDefault();
     const form = event.target as HTMLFormElement;
 
-    console.log(
-      await checkUserExists(form.username.value, form.password.value)
+    const userDoc = await getUserDetails(
+      form.username.value,
+      form.password.value
     );
+    if (userDoc) {
+      console.log("User found:", userDoc);
+      localStorage.setItem("user", `${userDoc.username}@${userDoc.password}`);
+      navigate("/");
+    }
   };
 
   return (
