@@ -273,7 +273,12 @@ export const HomePage: React.FC = () => {
             >
               +
             </Button>
-            <Typography variant="h4" dir="ltr" component="span">
+            <Typography
+              variant="h4"
+              dir="ltr"
+              component="span"
+              sx={{ minWidth: "83px" }}
+            >
               {value}
               <Typography component="span">₪</Typography>
             </Typography>
